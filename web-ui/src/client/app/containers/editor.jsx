@@ -5,6 +5,7 @@ import { Violations } from './violations.jsx';
 import { ViolationsResult } from '../components/violations.jsx';
 import { EditorInputForm } from '../components/editor.jsx';
 import { Dialog } from '../components/dialog.jsx';
+import { getLineNumberForPath } from '../utils/ast.js';
 
 export const editorErrorToAnnotations = error => {
   if (!error || !error.mark) {
@@ -69,6 +70,17 @@ export class Editor extends Violations {
     this.updateInputValue(value);
   }
 
+  handleShowViolationPath() {
+    let editor = this.editor.editor;
+    let line = getLineNumberForPath(editor.getValue(), [
+      'paths',
+      '/event-types/{name}/events',
+      'post',
+    ]);
+    editor.gotoLine(line, 0, true);
+    editor.focus();
+  }
+
   render() {
     return (
       <div className="dc-row editor-tab">
@@ -80,6 +92,7 @@ export class Editor extends Violations {
               value={this.state.editorValue}
               onSubmit={this.handleFormSubmit}
               onChange={this.handleOnInputValueChange}
+              editorRef={ref => (this.editor = ref)}
               pending={this.state.pending}
             />
           </div>
@@ -102,6 +115,7 @@ export class Editor extends Violations {
                 violations={this.state.violations}
                 successMsgTitle={this.state.successMsgTitle}
                 successMsgText={this.state.successMsgText}
+                showViolationPath={this.handleShowViolationPath}
               />
             </div>
           </div>
@@ -114,6 +128,7 @@ export class Editor extends Violations {
             violations={this.state.violations}
             successMsgTitle={this.state.successMsgTitle}
             successMsgText={this.state.successMsgText}
+            showViolationPath={this.handleShowViolationPath.bind(this)}
           />
         </Dialog>
       </div>

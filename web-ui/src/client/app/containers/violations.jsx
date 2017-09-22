@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { getLineNumberForPath } from '../utils/ast';
 
 export class Violations extends Component {
   constructor(props) {

@@ -29,6 +29,7 @@ export function EditorInputForm({
   value,
   annotations,
   onChange,
+  editorRef,
 }) {
   const validateButtonIsDisabled = pending || error || !value.trim();
 
@@ -44,12 +45,17 @@ export function EditorInputForm({
           <ValidateButton disabled={validateButtonIsDisabled} />
         </div>
       </div>
-      <Editor annotations={annotations} onChange={onChange} value={value} />
+      <Editor
+        annotations={annotations}
+        onChange={onChange}
+        editorRef={editorRef}
+        value={value}
+      />
     </form>
   );
 }
 
-export function Editor({ annotations, value, onChange }) {
+export function Editor({ annotations, value, onChange, editorRef }) {
   return (
     <div className="editor">
       <AceEditor
@@ -62,6 +68,7 @@ export function Editor({ annotations, value, onChange }) {
         showPrintMargin={false}
         value={value}
         onChange={onChange}
+        ref={editorRef}
         editorProps={{ $blockScrolling: true }}
       />
     </div>

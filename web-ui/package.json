@@ -45,6 +45,7 @@
     "dress-code": "2.1.1",
     "express": "4.15.2",
     "history": "4.7.2",
+    "js-yaml": "3.10.0",
     "lodash": "4.17.4",
     "pug": "2.0.0-rc.1",
     "react": "15.4.2",
@@ -55,7 +56,8 @@
     "react-router-dom": "4.2.2",
     "request": "2.81.0",
     "styled-components": "2.1.2",
-    "whatwg-fetch": "2.0.3"
+    "whatwg-fetch": "2.0.3",
+    "yaml-js": "0.2.0"
   },
   "devDependencies": {
     "babel-core": "6.24.0",

@@ -15,7 +15,13 @@ export function Violations(props) {
         <div className="dc-column">
           <ul className="violations-content">
             {props.violations.map((violation, index) => {
-              return <Violation key={index} violation={violation} />;
+              return (
+                <Violation
+                  showViolationPath={props.showViolationPath}
+                  key={index}
+                  violation={violation}
+                />
+              );
             })}
           </ul>
         </div>
@@ -51,7 +57,10 @@ export function Violation(props) {
         test={() => !!props.violation.paths.length}
         dataTestId="if-violation-paths"
       >
-        <ViolationPaths paths={props.violation.paths} />
+        <ViolationPaths
+          showViolationPath={props.showViolationPath}
+          paths={props.violation.paths}
+        />
       </If>
     </li>
   );
@@ -74,7 +83,20 @@ export function ViolationPaths(props) {
       <p>Paths:</p>
       <ul>
         {props.paths.map((path, i) => {
-          return <li key={i}>{path}</li>;
+          return (
+            <li key={i}>
+              <a
+                href="#"
+                onClick={e => {
+                  e.preventDefault();
+                  props.showViolationPath(path);
+                }}
+              >
+                {' '}
+                {path}
+              </a>
+            </li>
+          );
         })}
       </ul>
     </span>
@@ -116,6 +138,7 @@ export function ViolationsResult(props) {
         <Violations
           violations={props.violations}
           violationsCount={props.violationsCount}
+          showViolationPath={props.showViolationPath}
         />
       </If>
     </div>
